@@ -6,15 +6,13 @@ This is a project template for CMake, you can use this project template to creat
 
  - Download [homebrew](https://brew.sh/).
  - From the terminal use these commands
-	 - `brew install glfw`
-	 - `brew install glew`
-     - `git clone https://github.com/shrainu/m1-cmake-opengl-template.git`
+     - `git clone https://github.com/jlevallois/m1-cmake-opengl-template.git`
 	 - `cd m1-cmake-opengl-template`
 	 - `mkdir build`
 	 - `cd build`
 	 - `cmake ..`
 	 - `cmake --build .`
-	 - `./template`
+	 - `./main`
 
 ## Using with Visual Studio Code
 
@@ -22,7 +20,7 @@ This is a project template for CMake, you can use this project template to creat
  - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
  - [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
  - [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake)
- 
+
  After you install all the extensions and enable them close the vscode and project folder and open them again.
 
 ## FAQ
