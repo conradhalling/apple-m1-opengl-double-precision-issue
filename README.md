@@ -1,34 +1,40 @@
-# OpenGL CMake Template - M1 Mac
+# Minimal repro - Double-precision values in fragment shader issue on Apple M1 GPU
 
-This is a project template for CMake, you can use this project template to create Modern OpenGL apps with C++. Before using it make sure you follow the guidelines bellow, If you need more information about how to use this, I made a whole article about this which has all the details. [Link to article](https://shrainu.github.io/posts/openGLonM1mac.html).
+Using a double-precision value in fragment shader leads to software-rendering fallback on Apple M1 GPU. This project is a minimal repro case.
 
-## How to use it
+## Build instructions
 
- - Download [homebrew](https://brew.sh/).
- - From the terminal use these commands
-     - `git clone https://github.com/jlevallois/m1-cmake-opengl-template.git`
-	 - `cd m1-cmake-opengl-template`
-	 - `mkdir build`
-	 - `cd build`
-	 - `cmake ..`
-	 - `cmake --build .`
-	 - `./main`
+- `git clone https://github.com/jlevallois/apple-m1-opengl-double-precision-issue.git`
+- `cd apple-m1-opengl-double-precision-issue`
+- `mkdir build`
+- `cd build`
+- `cmake ..`
+- `cmake --build .`
+- `./main`
 
-## Using with Visual Studio Code
+## Expected output
 
- In order to use this template with Visual Studio Code you'll these extensions
- - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
- - [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
- - [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake)
+### On a macbook pro Intel
 
- After you install all the extensions and enable them close the vscode and project folder and open them again.
+No log in the console
 
-## FAQ
+### On a macbook pro Apple M1
 
-### My code doesn't works what should i do?
+The console displays the following:
 
-Make sure you followed all the steps correctly. If you're still having problems read my about this topic [here](https://shrainu.github.io/posts/openGLonM1mac.html). I explained how to use this in depth there.
+```txt
+FALLBACK (log once): Fallback to SW vertex processing because buildPipelineState failed
+FALLBACK (log once): Fallback to SW fragment processing because buildPipelineState failed
+FALLBACK (log once): Fallback to SW vertex processing, m_disable_code: 1000
+FALLBACK (log once): Fallback to SW fragment processing, m_disable_code: 1000000
+FALLBACK (log once): Fallback to SW vertex processing in drawCore, m_disable_code: 1000
+FALLBACK (log once): Fallback to SW fragment processing in drawCore, m_disable_code: 1000000
+```
 
-### My code used to work but it doesn't now
+leading to very bad performance (software mode is very slow).
 
-Make sure that you include GLEW before GLFW, and before including GLEW you have this line `#define GLEW_STATIC`. If you already have that, and you're still having problems you can contact me from this e mail : **batuhanyigit1705@gmail.com**. Before contacting just make sure that you didn't make anything wrong in your code.
+## Workaround
+
+Change the following line in the fragment shader: `double coucou = 0.5;` to `float coucou = 0.5f;` seems to resolve the issue but you will lose some precision (in this example we don't care, but it can be an issue).
+
+:octocat:
