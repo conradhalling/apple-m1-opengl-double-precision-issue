@@ -35,6 +35,6 @@ leading to very bad performance (software mode is very slow).
 
 ## Workaround
 
-Change the following line in the fragment shader (https://github.com/jlevallois/apple-m1-opengl-double-precision-issue/blob/main/src/main.cpp#L20): `double coucou = 0.5;` to `float coucou = 0.5f;` seems to resolve the issue but you will lose some precision (in this example we don't care, but it can be an issue).
+Change the following line in the fragment shader (https://github.com/jlevallois/apple-m1-opengl-double-precision-issue/blob/main/src/main.cpp#L22): `double coucou = 0.5;` to `float coucou = 0.5f;` seems to resolve the issue but you will lose some precision (in this example we don't care, but it can be an issue).
 
 :octocat:
