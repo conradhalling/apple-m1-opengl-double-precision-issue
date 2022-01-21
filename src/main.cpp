@@ -25,8 +25,8 @@ const char *fragmentShaderSource =
 
 int main() {
 
-  glfwInit();
-  if (!glfwInit())
+  int success = glfwInit();
+  if (!success)
     return -1;
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -36,9 +36,8 @@ int main() {
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-  GLFWwindow *window = glfwCreateWindow(640, 480, "Hello OpenGL", NULL, NULL);
+  GLFWwindow *window = glfwCreateWindow(640, 480, "Hello", NULL, NULL);
   if (!window) {
-
     glfwTerminate();
     return -1;
   }
@@ -52,7 +51,6 @@ int main() {
   glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
   glCompileShader(vertexShader);
 
-  int success;
   char infoLog[512];
   glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
   if (!success) {
@@ -100,11 +98,9 @@ int main() {
   glEnableVertexAttribArray(0);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-
   glBindVertexArray(0);
 
   while (!glfwWindowShouldClose(window)) {
-
     glClearColor(0.25f, 0.1f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
